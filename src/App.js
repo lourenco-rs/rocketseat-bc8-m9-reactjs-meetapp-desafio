@@ -6,7 +6,7 @@ import './config/ReactotronConfig';
 
 import GlobalStyle from './styles/global';
 import Routes from './routes';
-import history from './config/history';
+import history from './services/history';
 
 import store from './store';
 
