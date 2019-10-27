@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
   height: 100%;
-  background: yellow;
+`;
+
+export const Content = styled.div`
+  max-width: 940px;
+  margin: 0 auto;
 `;
