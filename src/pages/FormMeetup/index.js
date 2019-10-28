@@ -20,10 +20,6 @@ const schema = yup.object().shape({
 });
 
 export default function New({ location }) {
-  // const meetup = location.state ? location.state.meetup : null;
-
-  console.tron.log('new - location.state', location.state);
-
   async function handleSubmit(data) {
     try {
       let response = null;
