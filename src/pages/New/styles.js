@@ -1,9 +1,18 @@
 import styled from 'styled-components';
+import { Form } from '@rocketseat/unform';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 
-export const Container = styled.div``;
+export const StyledForm = styled(Form)`
+  span {
+    color: #fb6f91;
+    align-self: flex-start;
+    font-weight: bold;
+    margin: 0 0 12px;
+    display: block;
+  }
+`;
 
 export const Textarea = styled(Input)`
   height: 200px;
