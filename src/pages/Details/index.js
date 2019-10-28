@@ -1,19 +1,25 @@
 import React from 'react';
 import { MdEdit, MdDeleteForever } from 'react-icons/md';
 
+import history from '~/services/history';
+
 import { Header, EditButton, CancelButton, Content } from './styles';
 
 export default function Details({ location }) {
   const { meetup } = location.state;
 
-  function handleEditClick() {}
+  console.tron.log('location.state', location.state);
+
+  function handleEditClick() {
+    history.push('/formMeetup', { meetup });
+  }
 
   function handleCancelClick() {}
 
   return (
     <>
       <Header>
-        <h1>Meus meetups</h1>
+        <h1>{meetup.title}</h1>
         <div>
           <EditButton onClick={handleEditClick}>
             <MdEdit />

@@ -19,10 +19,21 @@ const schema = yup.object().shape({
   location: yup.string().required('A localização é obrigatória'),
 });
 
-export default function New() {
+export default function New({ location }) {
+  // const meetup = location.state ? location.state.meetup : null;
+
+  console.tron.log('new - location.state', location.state);
+
   async function handleSubmit(data) {
     try {
-      await api.post('meetups', data);
+      let response = null;
+
+      if (location.state) {
+        const { id } = location.state.meetup;
+        response = await api.put(`meetups/${id}`, data);
+      } else {
+        response = await api.post('meetups', data);
+      }
 
       toast.success('Meetup salvo com sucesso');
       history.push('/dashboard');
@@ -36,11 +47,19 @@ export default function New() {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit} schema={schema}>
+    <StyledForm
+      onSubmit={handleSubmit}
+      schema={schema}
+      initialData={location.state ? location.state.meetup : null}
+    >
       <BannerInput name="banner_id" />
       <Input name="title" placeholder="Título do Meetup" />
       <Textarea name="description" multiline placeholder="Descrição completa" />
-      <ReactDatePicker name="date" placeholder="Data do Meetup" />
+      <ReactDatePicker
+        name="date"
+        placeholder="Data do Meetup"
+        selectedDate={location.state && location.state.meetup.date}
+      />
       <Input name="location" placeholder="Localização" />
       <ButtonWrapper>
         <SaveButton type="submit">Salvar meetup</SaveButton>
