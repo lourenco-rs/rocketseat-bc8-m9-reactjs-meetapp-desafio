@@ -5,9 +5,9 @@ import { MdAddAPhoto } from 'react-icons/md';
 import api from '~/services/api';
 import { Container } from './styles';
 
-export default function BannerInput() {
+export default function BannerInput({ name }) {
   const { defaultValue, registerField } = useField('banner');
-
+  const { error } = useField(name);
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
@@ -37,26 +37,29 @@ export default function BannerInput() {
   }
 
   return (
-    <Container>
-      <label htmlFor="banner">
-        {preview ? (
-          <img src={preview} alt="Banner" />
-        ) : (
-          <div className="icon-add">
-            <MdAddAPhoto />
-            <strong>Selecionar imagem</strong>
-          </div>
-        )}
+    <>
+      <Container>
+        <label htmlFor="banner">
+          {preview ? (
+            <img src={preview} alt="Banner" />
+          ) : (
+            <div>
+              <MdAddAPhoto />
+              <strong>Selecionar imagem</strong>
+            </div>
+          )}
 
-        <input
-          type="file"
-          id="banner"
-          accept="image/*"
-          data-file={file}
-          onChange={handleChange}
-          ref={ref}
-        />
-      </label>
-    </Container>
+          <input
+            type="file"
+            id="banner"
+            accept="image/*"
+            data-file={file}
+            onChange={handleChange}
+            ref={ref}
+          />
+        </label>
+      </Container>
+      {error && <span>{error}</span>}
+    </>
   );
 }
