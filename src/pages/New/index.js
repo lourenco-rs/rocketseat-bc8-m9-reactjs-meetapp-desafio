@@ -1,9 +1,13 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import Input from '~/components/Input';
 import BannerInput from '~/components/BannerInput';
 import ReactDatePicker from '~/components/DatePicker';
+
+import history from '~/services/history';
+import api from '~/services/api';
 
 import { StyledForm, Textarea, ButtonWrapper, SaveButton } from './styles';
 
@@ -16,9 +20,21 @@ const schema = yup.object().shape({
 });
 
 export default function New() {
-  function handleSubmit(data) {
-    console.log(data);
+  async function handleSubmit(data) {
+    try {
+      await api.post('meetups', data);
+
+      toast.success('Meetup salvo com sucesso');
+      history.push('/dashboard');
+    } catch (error) {
+      toast.error(
+        error.response
+          ? error.response.data.error
+          : 'Houve um erro ao salvar o meetup, verfique os dados informados'
+      );
+    }
   }
+
   return (
     <StyledForm onSubmit={handleSubmit} schema={schema}>
       <BannerInput name="banner_id" />
