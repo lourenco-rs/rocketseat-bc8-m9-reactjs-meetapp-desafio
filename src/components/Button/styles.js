@@ -33,6 +33,10 @@ export const Button = styled.button.attrs(({ type, isLoading }) => ({
     cursor: not-allowed;
   }
 
+  svg {
+    margin-right: 10px;
+  }
+
   ${props =>
     props.isLoading &&
     css`

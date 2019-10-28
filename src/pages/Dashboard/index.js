@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md';
 
 import api from '~/services/api';
 
-// import { Container } from './styles';
+import { Header, NewButton, ListItem } from './styles';
 
 export default function Dashboard() {
-  // para teste da requisição autenticada
-  api.get('meetups');
+  const [meetups, setMeetups] = useState([]);
 
-  return <h1>Dashboard</h1>;
+  useEffect(() => {
+    async function loadMeetups() {
+      const response = await api.get('meetups');
+
+      const data = response.data.map(meetup => ({
+        ...meetup,
+        dateFormatted: format(
+          parseISO(meetup.date),
+          "d 'de' MMMM', às' HH'h'mm",
+          {
+            locale: pt,
+          }
+        ),
+      }));
+      setMeetups(data);
+    }
+    loadMeetups();
+  }, []);
+
+  return (
+    <>
+      <Header>
+        <h1>Meus meetups</h1>
+        <NewButton>
+          <MdAddCircleOutline />
+          Novo meetup
+        </NewButton>
+      </Header>
+
+      <ul>
+        {meetups.map(meetup => (
+          <ListItem key={meetup.id} onClick={() => {}}>
+            <strong>{meetup.title}</strong>
+            <div>
+              <time>{meetup.dateFormatted}</time>
+              <MdChevronRight />
+            </div>
+          </ListItem>
+        ))}
+      </ul>
+    </>
+  );
 }
