@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import CustomButton from '~/components/Button';
 
-export const Container = styled.div``;
-
 export const Header = styled.header`
   display: flex;
   justify-content: space-between;

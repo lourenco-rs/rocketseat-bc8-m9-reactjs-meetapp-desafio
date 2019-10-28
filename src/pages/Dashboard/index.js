@@ -4,6 +4,7 @@ import pt from 'date-fns/locale/pt';
 import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { Header, NewButton, ListItem } from './styles';
 
@@ -29,6 +30,10 @@ export default function Dashboard() {
     loadMeetups();
   }, []);
 
+  function handleShowDetails(meetup) {
+    history.push('/details', { meetup });
+  }
+
   return (
     <>
       <Header>
@@ -41,7 +46,7 @@ export default function Dashboard() {
 
       <ul>
         {meetups.map(meetup => (
-          <ListItem key={meetup.id} onClick={() => {}}>
+          <ListItem key={meetup.id} onClick={() => handleShowDetails(meetup)}>
             <strong>{meetup.title}</strong>
             <div>
               <time>{meetup.dateFormatted}</time>
