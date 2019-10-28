@@ -31,8 +31,6 @@ export const CancelButton = styled(CustomButton)`
 `;
 
 export const Content = styled.div`
-  /* background: yellow; */
-
   img {
     width: 940px;
     height: 300px;

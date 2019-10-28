@@ -38,7 +38,7 @@ export default function Dashboard() {
     <>
       <Header>
         <h1>Meus meetups</h1>
-        <NewButton>
+        <NewButton onClick={() => history.push('/new')}>
           <MdAddCircleOutline />
           Novo meetup
         </NewButton>
