@@ -1,13 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { parseISO } from 'date-fns';
 import { useField } from '@rocketseat/unform';
 
 import { ReactDatePicker } from './styles';
 
-export default function DatePicker({ name, placeholder }) {
+export default function DatePicker({ name, placeholder, selectedDate }) {
   const ref = useRef(null);
-  const { fieldName, registerField, defaultValue, error } = useField(name);
-  const [selected, setSelected] = useState(defaultValue);
+  const { fieldName, registerField, error } = useField(name);
+  const [selected, setSelected] = useState(
+    selectedDate ? parseISO(selectedDate) : new Date()
+  );
 
   useEffect(() => {
     registerField({
@@ -43,4 +46,9 @@ export default function DatePicker({ name, placeholder }) {
 DatePicker.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  selectedDate: PropTypes.string,
+};
+
+DatePicker.defaultProps = {
+  selectedDate: null,
 };
