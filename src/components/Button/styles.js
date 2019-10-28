@@ -10,10 +10,12 @@ const rotate = keyframes`
   }
 `;
 
-export const Button = styled.button.attrs(({ type, isLoading }) => ({
-  type: type || 'button',
-  disabled: !!isLoading,
-}))`
+export const Button = styled.button.attrs(
+  ({ type, isLoading, isDisabled }) => ({
+    type: type || 'button',
+    disabled: isDisabled || !!isLoading,
+  })
+)`
   display: flex;
   justify-content: center;
   align-items: center;
